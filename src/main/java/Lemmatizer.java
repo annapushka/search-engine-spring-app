@@ -44,7 +44,7 @@ public class Lemmatizer {
             if (form.contains("СОЮЗ") || form.contains("ЧАСТ")
                     || form.contains("ПРЕДЛ") || form.contains("МЕЖД")) {
                 continue;
-            } else if(form.contains("ед") || form.contains("ИНФИНИТИВ")){
+            } else if(form.contains(" ед") || form.contains("ИНФИНИТИВ")){
                 String[] paths = form.split("\\|");
                 generalWords.add(paths[0]);
             }
