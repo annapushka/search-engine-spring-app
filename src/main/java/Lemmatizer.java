@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class Lemmatizer {
-    private String text;
-    private List<String> generalWords;
-    private HashMap<String, Integer> wordsCounts;
+    private final String text;
+    private final List<String> generalWords;
+    private final HashMap<String, Integer> wordsCounts;
 
     public Lemmatizer(String text) {
         this.text = text;
@@ -18,8 +18,8 @@ public class Lemmatizer {
     public void getLemmas() throws IOException {
         String[] words = text.toLowerCase().replaceAll("[^А-Яа-я]+", " ")
                 .split("\\s");
-        for(int i = 0; i < words.length; i++) {
-            isAuxiliaryPart(words[i]);
+        for (String word : words) {
+            isAuxiliaryPart(word);
         }
         generalWords.forEach(word -> {
             int count = 1;
@@ -32,9 +32,7 @@ public class Lemmatizer {
     }
 
     public void printString() {
-        wordsCounts.entrySet().forEach(entry -> {
-            System.out.println(entry.getKey() + " - " + entry.getValue());
-        });
+        wordsCounts.forEach((key, value) -> System.out.println(key + " - " + value));
     }
 
     public void isAuxiliaryPart(String word) throws IOException {
@@ -44,7 +42,7 @@ public class Lemmatizer {
             if (form.contains("СОЮЗ") || form.contains("ЧАСТ")
                     || form.contains("ПРЕДЛ") || form.contains("МЕЖД")) {
                 continue;
-            } else if(form.contains(" ед") || form.contains("ИНФИНИТИВ")){
+            } else if(form.contains("ед") || form.contains("ИНФИНИТИВ")){
                 String[] paths = form.split("\\|");
                 generalWords.add(paths[0]);
             }
